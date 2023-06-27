@@ -9,11 +9,6 @@ const app = express();
 //Body parse middleware
 // เป็นการกำหนด middleware ในแอปพลิเคชัน Express เพื่อการประมวลผลข้อมูลที่ถูกส่งมากับคำขอ HTTP POST หรือ PUT
 
-//express.json() เป็น middleware ที่ใช้ในการแปลงข้อมูล JSON ที่ส่งมากับคำขอ HTTP POST หรือ PUT ให้เป็นอ็อบเจ็กต์ JavaScript ที่สามารถเข้าถึงได้ใน request.body ซึ่งอนุญาตให้เราสามารถใช้ข้อมูล JSON ที่ส่งมาได้ในแอปพลิเคชัน Express
-app.use(express.json());
-// เป็น middleware ที่ใช้ในการแปลงข้อมูลที่ถูกส่งมากับคำขอ HTTP POST หรือ PUT ในรูปแบบของสตริงคีลเข้าให้อยู่ในรูปแบบของอ็อบเจ็กต์ JavaScript ที่สามารถเข้าถึงได้ใน request.body การใช้ extended: false จะเป็นการกำหนดให้ middleware ดำเนินการแปลงข้อมูลในรูปแบบของ URL-encoded ที่มีรูปแบบพื้นฐาน
-app.use(express.urlencoded({ extended: false }));
-
 // app.get กับการแสดงข้อมูล index.html
 // app.get("/", (request, response) => {
 //   //send() ใช้สำหรับส่งข้อมูลอื่น ๆ ที่ไม่ใช่ไฟล์ หรือสามารถใช้ส่งข้อความอย่างง่าย
@@ -29,9 +24,16 @@ app.use(express.urlencoded({ extended: false }));
 //เป็นการเรียกใช้งาน middleware logger ที่ถูกเพิ่มเข้ากับแอปพลิเคชัน Express ด้วย app.use() ซึ่งจะให้ middleware logger ทำงานสำหรับทุกคำขอที่เข้าสู่แอปพลิเคชัน
 app.use(logger);
 
+//Body parse middleware
+//express.json() เป็น middleware ที่ใช้ในการแปลงข้อมูล JSON ที่ส่งมากับคำขอ HTTP POST หรือ PUT ให้เป็นอ็อบเจ็กต์ JavaScript ที่สามารถเข้าถึงได้ใน request.body ซึ่งอนุญาตให้เราสามารถใช้ข้อมูล JSON ที่ส่งมาได้ในแอปพลิเคชัน Express
+app.use(express.json());
+// เป็น middleware ที่ใช้ในการแปลงข้อมูลที่ถูกส่งมากับคำขอ HTTP POST หรือ PUT ในรูปแบบของสตริงคีลเข้าให้อยู่ในรูปแบบของอ็อบเจ็กต์ JavaScript ที่สามารถเข้าถึงได้ใน request.body การใช้ extended: false จะเป็นการกำหนดให้ middleware ดำเนินการแปลงข้อมูลในรูปแบบของ URL-encoded ที่มีรูปแบบพื้นฐาน
+app.use(express.urlencoded({ extended: false }));
+
 //การเชื่อมต่อโดยใช้ router
 //         path ในการใช้งาน          ไฟล์ที่จะระบุบ
-app.use("/api/users", require("./routes/api/users"));
+// app.use("/api/users", require("./routes/api/users"));
+app.use("/api/users", require("./routes/api/usersDB"));
 
 // set static folder
 //app.use กับการแสดงข้อมูล index.html แต่แบบนี้จะสามารถแสดง ไฟล์ใน folder ได้หลายไฟล์
